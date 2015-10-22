@@ -6,9 +6,11 @@ camera.scaleY = 1
 camera.rotation = 0
 
 function camera:set()
+  local cx,cy = love.graphics.getWidth()*((1-self.scaleX)/2)*(1/self.scaleX), love.graphics.getHeight()*((1-self.scaleY)/2)*(1/self.scaleY)
   love.graphics.push()
   love.graphics.rotate(-self.rotation)
-  love.graphics.scale(1 / self.scaleX, 1 / self.scaleY)
+  love.graphics.scale(self.scaleX, self.scaleY)
+  love.graphics.translate(cx, cy)
   love.graphics.translate(-self.x, -self.y)
 end
 
@@ -29,6 +31,11 @@ function camera:scale(sx, sy)
   sx = sx or 1
   self.scaleX = self.scaleX * sx
   self.scaleY = self.scaleY * (sy or sx)
+end
+
+function camera:centered_zoom(s)
+  self.scaleX = self.scaleX * s
+  self.scaleY = self.scaleY * s
 end
 
 function camera:setPosition(x, y)

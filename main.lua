@@ -1,6 +1,9 @@
--- This is the main game file for the moving box game!
+--[[
+	file: main.lua
+	description: callbacks for the Love2D game loop
+]]
+
 require "game"
-require "camera"
 
 --RUN ONCE
 function love.load()
@@ -24,9 +27,7 @@ end
 
 --RENDER LOOP
 function love.draw()
-	camera:set()
 	game:draw_world()
-	camera:unset()
 end
 
 function love.quit()

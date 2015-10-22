@@ -1,3 +1,11 @@
+--[[
+	file: game.lua
+	description: main game logic
+]]
+
+require "camera"
+require "player"
+
 game = {}
 game.world = {}
 game.world_objects = {}
@@ -48,9 +56,9 @@ end
 
 function game:update_camera()
 	if love.keyboard.isDown('-') then
-		camera:scale(.99, .99)
+		camera:centered_zoom(.99)
 	elseif love.keyboard.isDown('=') then
-		camera:scale(1.01, 1.01)
+		camera:centered_zoom(1.01)
 	end
 end
 
@@ -72,6 +80,7 @@ function game:bounce_ball()
 end
 
 function game:draw_world()
+	camera:set()
 	font = love.graphics.newFont(40)
 	love.graphics.setFont(font)
 	game_message = "B: Spawn Ball\nD: De-spawn Ball\nUp: Reset Ball\nLeft: Push Ball Left\nRight: Push Ball Right"
@@ -94,4 +103,5 @@ function game:draw_world()
 			end
 		end
 	end
+	camera:unset()
 end
